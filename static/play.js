@@ -16,6 +16,18 @@ function get_stack(){
     });
 }
 
+function tap(el){
+	url = window.location.href.split('/');    
+	code = url.at(-2)
+    player = url.at(-1)
+
+    card = el.src
+
+    $.post('/tap/'+code+'/'+player, {url:card}, function(res) {        
+        update_state()    
+    })
+}
+
 function get_battlefield(){
     url = window.location.href.split('/');
     code = url.at(-2)

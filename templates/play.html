@@ -3,6 +3,9 @@
 	{% include 'includes.html' %}
 	<script src="{{url_for('static', filename='play.js')}}"></script>
     <style>
+        .tapped {
+                transform: rotate(90deg);
+        }
         #game {
             display:flex;
             flex-wrap:wrap;

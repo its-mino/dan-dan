@@ -174,8 +174,17 @@ def add_to_battlefield(code, player):
             art_links = json.loads(f.read())
         card = art_links[card]
     player = rooms[code]['p'+player]
-    player.addCardToBattlefield(card)
+    player.addCardToBattlefield({'card':card, 'tapped':False})
     return 'success'
+
+@app.route('/tap/<code>/<player>', methods=['POST'])
+def toggle_tap(code, player):
+    card = request.form['url']
+    battlefield = rooms[code]['p'+player].getBattlefield()
+    for card2 in battlefield:
+        if card == card2['card']:
+            card2['tapped'] = not card2['tapped']
+            return 'success'
 
 @app.route('/add_to_hand/<code>/<player>', methods=['POST'])
 def add_to_hand(code, player):

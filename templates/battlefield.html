@@ -1,11 +1,11 @@
 <div style="display:flex; flex-wrap:wrap">
 {% for card in cards2 %}
-<div style="transform:rotate(180deg)"><img draggable="false" src="{{card}}"></div>
+<div style="transform:rotate({% if card['tapped'] %}270deg{% else %}180deg{% endif %})"><img draggable="false" src="{{card['card']}}"></div>
 {% endfor %}
 </div>
 <hr>
 <div class="battlefield" style="display:flex; flex-wrap:wrap">
 {% for card in cards %}
-<div><img {% if cards2 != None %}draggable="true" ondragstart="battlefielddrag(event)"{% endif %}  src="{{card}}"></div>
+<div style="transform:rotate({% if card['tapped'] %}90deg{% else %}0deg{% endif %})"><img ondblclick="tap(this)" {% if cards2 != None %}draggable="true" ondragstart="battlefielddrag(event)"{% endif %}  src="{{card['card']}}"></div>
 {% endfor %}
 </div>
