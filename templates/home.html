@@ -1,0 +1,42 @@
+<html>
+<head>
+	{% include 'includes.html' %}
+	<script src="{{url_for('static', filename='room.js')}}"></script>
+	<style>
+
+		.jumbostyle {
+			border: 2px solid black;
+			background-color:#A5A5A5;
+			width: 50vw;
+			height: 30vh; 
+			border-radius: 15px;
+			text-align:center; 
+			position:absolute; 
+			top:50%;
+			left:50%;
+			margin-left:-25vw;
+			margin-top:-15vh;
+		}
+
+	</style>
+</head>
+<body class="bg" background={{url_for('static', filename='images/dandan.png')}}>
+	<div class="jumbotron jumbostyle">
+  		<h1 class="display-4">Forgetful Fish</h1>
+		<p class="lead"><a href="https://docs.google.com/document/d/1nLLsrRfv6qRvri8zIHnxqUjOeUGS-o_izVicthyRzYM/edit">Rules</a></p>
+		<hr class="my-4">
+		<div style="display:flex">
+			<div style="flex:50%">
+				<h3>Create a new room</h3>
+				<button class="btn btn-primary" onclick="createroom()">Create</button>
+			</div>
+			<div style="flex:50%">
+				<h3>Enter a room code to join a game</h3>
+				<input type=text id="codejoin">
+				<br>
+				<button class="btn btn-primary" onclick="joinroom()">Join</button>
+			</div>
+		</div>
+	</div>    
+</body>
+</html>

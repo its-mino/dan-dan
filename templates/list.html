@@ -1,0 +1,5 @@
+<div class="list" style="display:flex; flex-wrap:wrap">
+{% for card in cards %}
+<div><img onclick="add_to_battlefield_from_shared('{{card['name']}}', '{{source}}')" src="{{card['url']}}"></div>
+{% endfor %}
+</div>

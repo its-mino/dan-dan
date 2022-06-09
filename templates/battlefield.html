@@ -1,0 +1,11 @@
+<div style="display:flex; flex-wrap:wrap">
+{% for card in cards2 %}
+<div style="transform:rotate(180deg)"><img draggable="false" src="{{card}}"></div>
+{% endfor %}
+</div>
+<hr>
+<div class="battlefield" style="display:flex; flex-wrap:wrap">
+{% for card in cards %}
+<div><img {% if cards2 != None %}draggable="true" ondragstart="battlefielddrag(event)"{% endif %}  src="{{card}}"></div>
+{% endfor %}
+</div>

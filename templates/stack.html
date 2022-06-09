@@ -1,0 +1,3 @@
+{% for card in stack %}
+<div style="float:left"><img {% if card['owner'] == player %}draggable="true" ondragstart="handdrag(event)" style="border:2px solid blue"{% else %} draggable="false" {% endif %} src="{{card['card']}}"></div>
+{% endfor %}

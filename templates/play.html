@@ -1,0 +1,116 @@
+<html>
+<head>
+	{% include 'includes.html' %}
+	<script src="{{url_for('static', filename='play.js')}}"></script>
+    <style>
+        #game {
+            display:flex;
+            flex-wrap:wrap;
+            width: 90%;
+            float:left;
+        }
+        #other {
+            display:flex;
+            float:right;
+            width:10%;
+            flex-wrap: wrap;
+        }
+        .gamearea {
+            border:1px solid black;
+            overflow:auto;
+            width: 100%;
+        }
+        #stack {
+            height: 25vh;
+        }
+        #battlefield {
+            height: 54vh;
+        }
+        #hand {
+            height: 21vh;
+        }
+        #options {
+            height:100vh;
+            width:100%;
+        }
+        .label {
+            width: 100%;
+            text-align: center;
+        }
+        .box {
+            border 1px solid black;
+            margin: 5px;
+        }
+        button {
+            margin-bottom:10px;
+            margin-right:5px;
+        }
+        .num {
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game">
+        <div ondrop="add_to_stack(event)" ondragover="allowDrop(event)" class="gamearea" id="stack"><div class="label">stack</div></div>
+        <div ondrop="add_to_battlefield(event)" ondragover="allowDrop(event)" class="gamearea" id="battlefield"><div class="label">battlefield</div></div>
+        <div ondrop="add_to_hand(event)" ondragover="allowDrop(event)" class="gamearea hand" id="hand"><div class="label">hand</div></div>
+    </div>
+    <div id="other">
+        <div class="gamearea" id="options">
+            <div class="box">
+            <div class="box">
+                Room Code: {{code}}
+            </div>
+                <h5>Deck</h5>
+                <button class="btn btn-primary" onclick="draw(-1)">Draw</button><input class="num" type=number value=1 id="drawamount"><br>
+                <button class="btn btn-primary" onclick="mill()">Mill</button><input class="num" type=number value=1 id="millamount"><br>
+                <button class="btn btn-primary" onclick="view_deck()">Search</button><br>
+				<button class="btn btn-primary" onclick="shuffle()">Shuffle</button><br>
+                <img draggable="false" ondrop="add_to_deck(event)" ondragover="allowDrop(event)" onclick="draw(1)" style="width: 100%" src={{url_for('static', filename='images/mtgback.jpg')}} id="deck_loc">
+            </div>
+            <div class="box">
+                <h5>Graveyard</h5>
+                <img draggable="false" ondrop="add_to_graveyard(event)" ondragover="allowDrop(event)" onclick="view_graveyard()" style="width: 100%" src={{url_for('static', filename='images/mtgback.jpg')}} id="graveyard_loc">
+            </div>
+            <div class="box">
+                <h5>Decklist</h5>
+                <button class="btn btn-primary" onclick="view_decklist()">View</button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">Update</button>
+            </div>
+            <div class="box">
+                Cards in Opp. Hand: <div id="handcount"></div>
+                Cards in Deck: <div id="deckcount"></div>
+                Cards in Graveyard: <div id="gravecount"></div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" id="modalbody">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" id="modalbody2">
+          <textarea id="decklist_entry" rows="20" cols="60">Paste your decklist here</textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="submit_list()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
