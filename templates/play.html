@@ -7,6 +7,7 @@
                 transform: rotate(90deg);
         }
         #game {
+            position: relative;
             display:flex;
             flex-wrap:wrap;
             width: 90%;
@@ -22,7 +23,20 @@
             border:1px solid black;
             overflow:auto;
             width: 100%;
+            position: relative;
         }
+
+        .gamearea::after {
+            color: #000;
+            content: attr(data-bg-text);
+            display: block;
+            font-size: 30x;
+            line-height: 1;
+            position: absolute;
+            bottom: 5px;
+            right: 100px;
+        }
+
         #stack {
             height: 25vh;
         }
@@ -55,9 +69,9 @@
 </head>
 <body>
     <div id="game">
-        <div ondrop="add_to_stack(event)" ondragover="allowDrop(event)" class="gamearea" id="stack"><div class="label">stack</div></div>
-        <div ondrop="add_to_battlefield(event)" ondragover="allowDrop(event)" class="gamearea" id="battlefield"><div class="label">battlefield</div></div>
-        <div ondrop="add_to_hand(event)" ondragover="allowDrop(event)" class="gamearea hand" id="hand"><div class="label">hand</div></div>
+        <div data-bg-text="Stack" ondrop="add_to_stack(event)" ondragover="allowDrop(event)" class="gamearea" id="stack"></div>
+        <div data-bg-text="Battlefield" ondrop="add_to_battlefield(event)" ondragover="allowDrop(event)" class="gamearea" id="battlefield"></div>
+        <div data-bg-text="Hand" ondrop="add_to_hand(event)" ondragover="allowDrop(event)" class="gamearea hand" id="hand"></div>
     </div>
     <div id="other">
         <div class="gamearea" id="options">
