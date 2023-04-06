@@ -291,8 +291,7 @@ function draw(amount){
     if(amount == -1){
         amount = $('#drawamount').val()
     }
-    $.get('/draw/'+code+'/'+player+'/'+amount, function(res) {})
-    update_state()
+    $.get('/draw/'+code+'/'+player+'/'+amount, function(res) {update_state()})
 }
 
 function mill(){

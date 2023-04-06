@@ -25,6 +25,9 @@ class Player:
     def addCardToBattlefield(self, card):
         self.battlefield.append(card)
 
-    def removeCardFromBattlefield(self, num):
-        self.battlefield.remove(num)
+    def removeCardFromBattlefield(self, url):
+        for i, card in enumerate(self.battlefield):
+            if url == card['card']:
+                print(i)
+                self.battlefield.pop(i)
 

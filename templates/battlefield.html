@@ -6,6 +6,6 @@
 <hr>
 <div class="battlefield" style="display:flex; flex-wrap:wrap">
 {% for card in cards %}
-<div style="transform:rotate({% if card['tapped'] %}90deg{% else %}0deg{% endif %})"><img ondblclick="tap(this)" {% if cards2 != None %}draggable="true" ondragstart="battlefielddrag(event)"{% endif %}  src="{{card['card']}}"></div>
+<div style="transform:rotate({% if card['tapped'] %}90deg{% else %}0deg{% endif %})"><img onclick="tap(this)" {% if cards2 != None %}draggable="true" ondragstart="battlefielddrag(event)"{% endif %}  src="{{card['card']}}"></div>
 {% endfor %}
 </div>

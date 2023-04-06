@@ -42,6 +42,8 @@ def get_list(decklist):
 
 @app.route('/')
 def home():
+    with open('access.txt', 'a') as f:
+        f.write(request.remote_addr+'\n')
     return render_template('home.html')
 
 @app.route('/check_code/<code>')
@@ -50,6 +52,10 @@ def check_code(code):
         return 'Invalid Code'
     else:
         return 'ok'
+
+@app.route('/checkrooms')
+def checkrooms():
+    return str(rooms.keys())
 
 @app.route('/createroom')
 def createroom():
@@ -112,10 +118,14 @@ def get_decklist(code):
 
 @app.route('/draw/<code>/<player>/<amount>')
 def draw(code, player, amount):
+    print(code)
     player = rooms[code]['p'+player]
     for i in range(int(amount)):
-        player.addCardToHand(rooms[code]['deck'].pop(0))
-    return 'success'
+        card = rooms[code]['deck'].pop(0)
+        print(card)
+        player.addCardToHand(card)
+    print(player.getHand())
+    return str(player.getHand())
 
 @app.route('/mill/<code>/<amount>')
 def mill(code, amount):
@@ -155,9 +165,9 @@ def count_grave(code):
     return str(len(graveyard))
 
 @app.route('/count_hand/<code>/<player>')
-def count_hand(code, player):    
-    player_num = (1 if player == 2 else 1)
-    hand = rooms[code]['p'+str(player_num)].getHand()
+def count_hand(code, player): 
+    player_num = ('1' if str(player) == '2' else '2')
+    hand = rooms[code]['p'+player_num].getHand()
     return str(len(hand))
 
 @app.route('/count_deck/<code>')
@@ -169,7 +179,7 @@ def count_deck(code):
 def add_to_battlefield(code, player):
     card = request.form['url']
     if 'http' not in card:
-        card.replace(';', '\'')
+        card = card.replace(';', '\'')
         with open('art_links.json', 'r') as f:        
             art_links = json.loads(f.read())
         card = art_links[card]
@@ -250,7 +260,7 @@ def add_to_graveyard(code):
 @app.route('/remove_from_graveyard/<code>', methods=['POST'])
 def remove_from_graveyard(code):
     card = request.form['url']
-    card.replace(';', '\'')
+    card = card.replace(';', '\'')
     graveyard = rooms[code]['graveyard']
     with open('art_links.json', 'r') as f:            
         art_links = json.loads(f.read())        
@@ -261,7 +271,7 @@ def remove_from_graveyard(code):
 @app.route('/remove_from_deck/<code>', methods=['POST'])
 def remove_from_deck(code):
     card = request.form['url']
-    card.replace(';', '\'')
+    card = card.replace(';', '\'')
     with open('art_links.json', 'r') as f:            
         art_links = json.loads(f.read())        
     card = art_links[card]
